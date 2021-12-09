@@ -29,8 +29,9 @@ visited=[[0 for _ in i] for i in heightmap]
 for i in range(len(heightmap)):
     for j in range(len(heightmap[i])):
         if (i,j) not in visited:
-            basin.append(checkBasin(heightmap, (i,j), visited))
-            
+            result = checkBasin(heightmap, (i,j), visited)
+            if result!=0:
+                basin.append(result)
 basin.sort()
 # print(basin)
 print(basin[-1]*basin[-2]*basin[-3])
