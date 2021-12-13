@@ -1,9 +1,10 @@
-from aoc_common import fileToArray
+from aoc_common import fileToArray, fileToMap
+from datetime import datetime
 
 def searchRoute(obj, currentNode, visited):
     result=0
     if currentNode=="end":
-        print (visited)
+        # print (visited)
         return 1
     for i in obj[currentNode]:
         if i not in visited or all(j.isupper() for j in i):
@@ -14,8 +15,8 @@ def searchRoute(obj, currentNode, visited):
     return result
 
 
-
-
+start = datetime.now()
+# print(fileToMap("test12.txt", "-"))
 routes=fileToArray("test12.txt")
 connections={}
 for i in routes:
@@ -30,5 +31,7 @@ for i in routes:
             connections[connection[1]].append(connection[0])
         else:
             connections[connection[1]]=[connection[0]]
-print(connections)
+# print(connections)
 print(searchRoute(connections, "start", []))
+end = datetime.now()
+print("Time Elapsed: "+str(end-start))
