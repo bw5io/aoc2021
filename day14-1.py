@@ -1,8 +1,7 @@
 import collections
-from typing import Collection
+from datetime import datetime
 
-
-file=open("test14.txt")
+file=open("day14.txt")
 polymer=file.readline().strip()
 file.readline()
 rules={}
@@ -13,7 +12,8 @@ while True:
     thisline=thisline.strip().split(" -> ")
     rules[thisline[0]]=thisline[1]
 # print(rules)
-for i in range(10):
+for number in range(40):
+    start=datetime.now()
     pointer=0
     while pointer<len(polymer)-1:
         toBeCompared=polymer[pointer:pointer+2]
@@ -21,6 +21,8 @@ for i in range(10):
             polymer=polymer[0:pointer+1]+rules[toBeCompared]+polymer[pointer+1:]
             pointer+=1
         pointer+=1
+    counter = collections.Counter(polymer)
+    print(f"Round {number+1}: {max(counter.values())-min(counter.values())}. Elapsed Time: {datetime.now()-start}")
     # print(polymer)
 result = collections.Counter(polymer)
-print(max(result.values())-min(result.values()))
+    

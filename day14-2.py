@@ -1,49 +1,44 @@
 import collections
-from typing import Collection
+from datetime import datetime
 
+def addDict(obj, key, value):
+    if key in obj:
+        obj[key]+=value
+    else:
+        obj[key]=value
+
+rules={}
 
 file=open("day14.txt")
 polymer=file.readline().strip()
 file.readline()
-rules={}
 while True:
     thisline = file.readline()
     if not thisline:
         break
     thisline=thisline.strip().split(" -> ")
     rules[thisline[0]]=thisline[1]
+
 counter=dict(collections.Counter(polymer))
+
 pointer=0
 pairing={}
 while pointer<len(polymer)-1:
     toBeCompared=polymer[pointer:pointer+2]
-    if toBeCompared in pairing:
-        pairing[toBeCompared]+=1
-    else:
-        pairing[toBeCompared]=1
+    addDict(pairing, toBeCompared, 1)
     pointer+=1
 
-for i in range(40):
+for number in range(40):
+    start = datetime.now()
     newPairing={}
     for i,j in pairing.items():
         if i in rules:
             left=i[0]+rules[i]
             right=rules[i]+i[1]
-            if left in newPairing:
-                newPairing[left]+=j
-            else:
-                newPairing[left]=j
-            if right in newPairing:
-                newPairing[right]+=j
-            else:
-                newPairing[right]=j
-            if rules[i] in counter:
-                counter[rules[i]]+=j
-            else:
-                counter[rules[i]]=j
+            addDict(newPairing, left, j)
+            addDict(newPairing, right, j)
+            addDict(counter, rules[i], j)
         else:
             newPairing[i]=j
-    print(counter)
-    print(newPairing)
     pairing=newPairing
-    print(max(counter.values())-min(counter.values()))
+    print(f"Round {number+1}: {max(counter.values())-min(counter.values())}. Elapsed Time: {datetime.now()-start}")
