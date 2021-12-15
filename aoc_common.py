@@ -14,7 +14,10 @@ def fileToMap(filename, sep, returnInt=False):
     input=fileToArray(filename)
     output=[]
     for i in input:
-        line=i.split(sep)
+        if sep=="":
+            line=list(i)
+        else:
+            line=i.split(sep)
         if returnInt==True:
             line=[int(element) for element in line]
         output.append(line)
