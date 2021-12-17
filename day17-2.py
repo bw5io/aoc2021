@@ -2,7 +2,13 @@ from aoc_common import addDictList
 
 targetX=range(94,151+1)
 targetY=range(-156,-103+1)
+    
 
+# Part 1 Solution: 
+y=min(targetY)*-1-1
+print((1+y)*y/2)
+
+# Part 2
 xStep={}
 yStep={}
 xEnd={}
@@ -36,27 +42,21 @@ for y in range(min(targetY), min(targetY)*-1+2):
 result=set()
 
 
-print(xStep)
-print(yStep)
-print(xEnd)
-
 for i,j in yStep.items():
-    print(i,j)
     if i in xStep:
         for x in xStep[i]:
             for y in yStep[i]:
                 result.add((x,y))
     for k in xEnd:
         if i>=k:
-            print(i,k)
             for x in xEnd[k]:
                 for y in yStep[i]:
                     result.add((x,y))
 
 
-print(result)
+# print(result)
 print(len(result))
 
-print(xStep)
-print(yStep)
-print(xEnd)
+# print(xStep)
+# print(yStep)
+# print(xEnd)
