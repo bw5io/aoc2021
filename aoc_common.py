@@ -22,3 +22,15 @@ def fileToMap(filename, sep, returnInt=False):
             line=[int(element) for element in line]
         output.append(line)
     return output
+
+def addDictList(obj, key, value):
+    if key in obj:
+        obj[key].append(value)
+    else:
+        obj[key]=[value]
+
+def addDict(obj, key, value):
+    if key in obj:
+        obj[key]+=value
+    else:
+        obj[key]=value
